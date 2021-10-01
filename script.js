@@ -79,7 +79,6 @@ function movimento(teclaPressionada) {
             cordenadaAtualLinha++
             movimentoPersonagemColuna -= 20
             podeMover = false
-            console.log('Não pode mover nesta direção')
         }
 
 
@@ -92,7 +91,6 @@ function movimento(teclaPressionada) {
             cordenadaAtualLinha--
             movimentoPersonagemColuna += 20
             podeMover = false
-            console.log('Não pode mover nesta direção')
         }
     
     } else if (teclaPressionada === 'ArrowRight' && cordenadaAtualColuna < 20) {
@@ -104,7 +102,6 @@ function movimento(teclaPressionada) {
             cordenadaAtualColuna--
             movimentoPersonagemLinha -= 20
             podeMover = false
-            console.log('Não pode mover nesta direção')
         }
     
     } else if (teclaPressionada === 'ArrowLeft' && cordenadaAtualColuna > 0) {
@@ -116,11 +113,9 @@ function movimento(teclaPressionada) {
             cordenadaAtualColuna++
             movimentoPersonagemLinha += 20
             podeMover = false
-            console.log('Não pode mover nesta direção')
         }
     
     } else {
-        console.log('Não pode mover nesta direção')
         podeMover = false
     }
 
@@ -131,29 +126,15 @@ function movimento(teclaPressionada) {
         personagem.style.left = `${movimentoPersonagemLinha}px`
     }
 
-    console.log(blocoAtual)
-    console.log(novoBlocoAtual)
-
-    // console.log(novoBlocoAtual.id)
-
-    condiçãoDeVitoria(blocoFinal)
-}
-
-
-document.addEventListener('keydown', (event) => {
-    const keyName = event.key
-    // console.log('keydown event\n\n' + 'key: ' + keyName)
-    let teclaPressionada = event.key
-
-    movimento(teclaPressionada)
-
-})
-
-function condiçãoDeVitoria(bloco) {
-    if (bloco.id === 'posicaoAtual') {
-        window.alert('Parabéns! Você venceu.')
+    if (blocoFinal.id === 'posicaoAtual') {
+        vitoria()
     }
 }
+
+document.addEventListener('keydown', (event) => {
+    let teclaPressionada = event.key
+    movimento(teclaPressionada)
+})
 
 const geraCorAleatoria = () => {
     const codigo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
@@ -167,9 +148,24 @@ const geraCorAleatoria = () => {
     for (let index = 0; index < 175; index++) {
         document.getElementsByClassName('blocoW')[index].style.backgroundColor = `#${codigoHexadeciamal}`
     }
-
+    
 }
 
-setInterval(() => {
+let tempo = setInterval(() => {
     geraCorAleatoria()
 }, 2000);
+
+function vitoria() {
+    clearInterval(tempo)
+    section.innerText = ''
+    section.removeAttribute('id')
+    section.classList.add('section')
+    const titulo = document.createElement('h1')
+    titulo.innerText = 'Parabéns!'
+    titulo.classList.add('titulo')
+    const paragrafo = document.createElement('p')
+    paragrafo.classList.add('paragrafo')
+    paragrafo.innerText = 'Pra mim é claro, criador desse game. \n Obrigado!'
+    section.appendChild(titulo)
+    section.appendChild(paragrafo)
+}
