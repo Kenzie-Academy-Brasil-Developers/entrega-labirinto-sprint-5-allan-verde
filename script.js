@@ -35,13 +35,11 @@ for (let linha in map) {
         if (map[linha][coluna] === 'W') {
             bloco.classList.add('blocoW')
             bloco.classList.add(`bloco${linha}_${coluna}`)
-            bloco.innerText = 'W'
 
         } else if (map[linha][coluna] === 'S') {
             bloco.id = 'posicaoAtual'
             bloco.classList.add('blocoSpace')
             bloco.classList.add(`bloco${linha}_${coluna}`)
-            bloco.innerText = 'S'
             blocoDeInicio = bloco
             cordenadaAtualLinha = linha
             cordenadaAtualColuna = coluna
@@ -49,14 +47,11 @@ for (let linha in map) {
         } else if (map[linha][coluna] === 'F') {
             bloco.classList.add('blocoFinish')
             bloco.classList.add(`bloco${linha}_${coluna}`)
-            bloco.innerText = 'F'
             blocoFim = bloco
 
         } else {
             bloco.classList.add('blocoSpace')
             bloco.classList.add(`bloco${linha}_${coluna}`)
-            bloco.innerText = 'X'
-
         }
         
         blocoLinha.appendChild(bloco)
@@ -65,21 +60,24 @@ for (let linha in map) {
     section.appendChild(blocoLinha)
 }
 
-// console.log(cordenadaAtual)
+let movimentoPersonagemLinha = 0
+let movimentoPersonagemColuna = 105 
 
 function movimento(teclaPressionada) {
     let blocoFinal = document.getElementsByClassName('blocoFinish')[0]
     let blocoAtual = document.getElementsByClassName(`bloco${cordenadaAtualLinha}_${cordenadaAtualColuna}`)[0]
-    let novoBlocoAtual
+    let personagem = document.getElementById('personagem')
 
     let podeMover = true
 
     if (teclaPressionada === 'ArrowUp' && cordenadaAtualLinha > 0) {
         cordenadaAtualLinha--
+        movimentoPersonagemColuna += 20
         novoBlocoAtual = document.getElementsByClassName(`bloco${cordenadaAtualLinha}_${cordenadaAtualColuna}`)[0]
         
         if (novoBlocoAtual.classList[0] === 'blocoW') {
             cordenadaAtualLinha++
+            movimentoPersonagemColuna -= 20
             podeMover = false
             console.log('Não pode mover nesta direção')
         }
@@ -87,30 +85,36 @@ function movimento(teclaPressionada) {
 
     } else if (teclaPressionada === 'ArrowDown' && cordenadaAtualLinha < 14) {
         cordenadaAtualLinha++
+        movimentoPersonagemColuna -= 20
         novoBlocoAtual = document.getElementsByClassName(`bloco${cordenadaAtualLinha}_${cordenadaAtualColuna}`)[0]
         
         if (novoBlocoAtual.classList[0] === 'blocoW') {
             cordenadaAtualLinha--
+            movimentoPersonagemColuna += 20
             podeMover = false
             console.log('Não pode mover nesta direção')
         }
     
     } else if (teclaPressionada === 'ArrowRight' && cordenadaAtualColuna < 20) {
         cordenadaAtualColuna++
+        movimentoPersonagemLinha += 20
         novoBlocoAtual = document.getElementsByClassName(`bloco${cordenadaAtualLinha}_${cordenadaAtualColuna}`)[0]
         
         if (novoBlocoAtual.classList[0] === 'blocoW') {
             cordenadaAtualColuna--
+            movimentoPersonagemLinha -= 20
             podeMover = false
             console.log('Não pode mover nesta direção')
         }
     
     } else if (teclaPressionada === 'ArrowLeft' && cordenadaAtualColuna > 0) {
         cordenadaAtualColuna--
+        movimentoPersonagemLinha -= 20
         novoBlocoAtual = document.getElementsByClassName(`bloco${cordenadaAtualLinha}_${cordenadaAtualColuna}`)[0]
         
         if (novoBlocoAtual.classList[0] === 'blocoW') {
             cordenadaAtualColuna++
+            movimentoPersonagemLinha += 20
             podeMover = false
             console.log('Não pode mover nesta direção')
         }
@@ -123,6 +127,8 @@ function movimento(teclaPressionada) {
     if (podeMover) {
         blocoAtual.removeAttribute('id')
         novoBlocoAtual.id = 'posicaoAtual'
+        personagem.style.bottom = `${movimentoPersonagemColuna}px`
+        personagem.style.left = `${movimentoPersonagemLinha}px`
     }
 
     console.log(blocoAtual)
@@ -148,3 +154,22 @@ function condiçãoDeVitoria(bloco) {
         window.alert('Parabéns! Você venceu.')
     }
 }
+
+const geraCorAleatoria = () => {
+    const codigo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+    let codigoHexadeciamal = []
+    for (let i = 1; i <= 6; i++) {
+        let indiceAleatorio = () => Math.floor(Math.random() * 16)
+        codigoHexadeciamal.push(codigo[indiceAleatorio()])
+    }
+    codigoHexadeciamal = codigoHexadeciamal.join('')
+    
+    for (let index = 0; index < 175; index++) {
+        document.getElementsByClassName('blocoW')[index].style.backgroundColor = `#${codigoHexadeciamal}`
+    }
+
+}
+
+setInterval(() => {
+    geraCorAleatoria()
+}, 2000);

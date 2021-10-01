@@ -1,0 +1,60 @@
+section {
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    box-sizing: border-box;
+}
+#secao {
+    background-color: cornsilk;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+.blocoW {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    box-sizing: border-box;
+    transition: 2.0s;
+}
+.blocoSpace {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    box-sizing: border-box;
+}
+.blocoFinish {
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+}
+.blocoLinha {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+#posicaoAtual {
+    background-color: grey;
+    transition: 0.5s;
+}
+#personagem {
+    position: absolute;
+    bottom: 105px;
+    left: 0;
+    width: 30px;
+    transition: 0.3s;
+}
+#diamante {
+    position: absolute;
+    top: 160px;
+    right: 0;
+    width: 20px;
+    transition: 0.3s;
+}
