@@ -1,0 +1,38 @@
+#secao {
+    width: 100vw;
+    height: 100vh;
+    background-color: cornsilk;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.blocoW {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    border: 1px solid black;
+}
+.blocoSpace {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid black;
+}
+.blocoFinish {
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border: 1px solid black;
+}
+.blocoLinha {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#posicaoAtual {
+    width: 20px;
+    height: 20px;
+    background-color: blueviolet;
+    border: 1px solid black;
+}
